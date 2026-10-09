@@ -8,3 +8,11 @@
 #rr-chat-launcher{background:var(--ink)!important;color:var(--paper)!important}
 header .rr-cart-icon{position:static!important;flex:none!important;margin-left:0!important}
 header .rr-cart-icon{position:relative!important;inset:auto!important}
+
+/* Approved DD17 firearm artwork: keep the complete mark and natural black finish. */
+.logo-frame{aspect-ratio:1214/670}
+header .brand-logo-slot{height:68.44px}
+a.brand-logo-slot .brand-logo-image,.logo-frame img{left:-1.64745%;top:-40.29851%;width:103.29489%;height:187.16418%}
+:root[data-theme=dark] .brand-logo-image,:root[data-theme=dark] .logo-frame img{filter:none;mix-blend-mode:normal}
+:root[data-theme=dark] .logo-frame,:root[data-theme=dark] .brand-logo-slot{background:#fff}
+@media(max-width:750px){header .brand-logo-slot{height:59.61px}}
