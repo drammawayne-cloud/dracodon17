@@ -2,6 +2,7 @@
 const site=document.body.dataset.site,base='https://console.richrowmusic.com',content=document.querySelector('#content');
 document.querySelector('#year').textContent=new Date().getFullYear();
 const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;};
+const fallbackContent=content.cloneNode(true);
 const safe=value=>{try{const u=new URL(value);return u.protocol==='https:'&&!u.username&&!u.password?u.href:null;}catch{return null;}};
 function link(url,label){const a=node('a',label,'action');a.href=safe(url)||base;a.rel='noopener noreferrer';a.target='_blank';return a;}
 function block(b){const box=node('div',null,'block');if(b.title)box.append(node('h3',b.title));if(b.body)box.append(node('p',b.body));
@@ -13,11 +14,11 @@ function block(b){const box=node('div',null,'block');if(b.title)box.append(node(
  if(b.type==='release')box.append(node('p',b.artist),link(base+'/addons/store?product='+encodeURIComponent(b.productId),b.label||'View release'));
  if(b.type==='radio')box.append(link(base+'/addons/radio',b.label||'Listen to Highlife Radio'));
  if(b.type==='divider')box.append(node('hr'));if(b.type==='spacer')box.style.height=Math.min(160,Math.max(8,Number(b.height)||8))+'px';return box;}
-async function load(){try{const r=await fetch(base+'/api/addon/page?slug='+encodeURIComponent(site),{credentials:'omit',cache:'no-store'});if(!r.ok)throw Error('unavailable');const p=await r.json();if(!Array.isArray(p.blocks))throw Error('invalid');const fragment=document.createDocumentFragment();let section,number=0;
+async function load(){try{const r=await fetch(base+'/api/addon/page?slug='+encodeURIComponent(site),{credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('unavailable');const p=await r.json();if(!Array.isArray(p.blocks))throw Error('invalid');const fragment=document.createDocumentFragment();let section,number=0;
  for(const [i,b] of p.blocks.filter(b=>!b.hidden).entries()){if(i===0&&b.type==='heading'){const h=document.querySelector('h1'),title=b.title||p.title;const lines=title==='DracoDon17'?['Draco','Don17.']:title==='Wayne Kastro'?['Wayne','Kastro.']:null;if(lines)h.replaceChildren(...lines.map(t=>node('span',t)));else{h.textContent=title;h.style.fontSize='clamp(48px,8vw,120px)';}document.querySelector('#intro').textContent=b.body||'';continue;}
  if(b.type==='heading'){section=node('section');section.id=(b.title||'section-'+number).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const head=node('div',null,'section-head');head.append(node('small',String(++number).padStart(2,'0')),node('h2',b.title));section.append(head);if(b.body)section.append(node('p',b.body));fragment.append(section);}else{if(!section){section=node('section');fragment.append(section);}section.append(block(b));}}
- content.replaceChildren(fragment);await loadCatalog();
- }catch{content.replaceChildren(node('p','Updates are temporarily unavailable. Please check back soon.','notice'),link(base+'/addons/page?slug='+site,'Open artist updates'),link('https://richrowmusic.com/contact.html','Booking & enquiries'));}}
+ content.replaceChildren(fragment);
+ }catch{content.replaceChildren(...[...fallbackContent.childNodes].map(n=>n.cloneNode(true)));const message=node('p','Some artist updates are temporarily unavailable. You can still explore the music, photos and booking links below.','notice');message.setAttribute('role','status');const retry=node('button','Retry updates','action');retry.type='button';retry.onclick=()=>{retry.disabled=true;retry.textContent='Loading updates…';load();};message.append(document.createTextNode(' '),retry);content.prepend(message);}await loadCatalog();}
 
 
 // Public catalog access; database policies allow published records only.
