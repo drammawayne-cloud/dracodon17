@@ -14,3 +14,4 @@ body[data-site=dracodon17] :is(input,select,textarea):focus-visible{outline-colo
 body[data-site=dracodon17] :is(.error,.form-error,[role=alert]){color:var(--ink)}
 body[data-site=dracodon17] :is(input,select,textarea)[aria-invalid=true]{border:2px dashed var(--ink);box-shadow:none}
 body[data-site=dracodon17] dialog[data-artist-login=dracodon17]{background:var(--panel)!important;color:var(--ink)!important;border-color:var(--line)!important}
+body[data-site=dracodon17] dialog:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
