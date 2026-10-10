@@ -1,5 +1,5 @@
 'use strict';
-const site=document.body.dataset.site,base='https://console.richrowmusic.com',content=document.querySelector('#content');
+const site=document.body.dataset.site,base='https://console.richrowrecords.com',content=document.querySelector('#content');
 document.querySelector('#year').textContent=new Date().getFullYear();
 const node=(tag,text,cls)=>{const n=document.createElement(tag);if(text)n.textContent=text;if(cls)n.className=cls;return n;};
 const fallbackContent=content.cloneNode(true);

@@ -4,7 +4,7 @@ export function brandSignIn(root,dialog,{site,name,role='customer'}={}){
   waynekastro:{origin:'https://waynekastro.com',name:'Wayne Kastro',logo:'/assets/branding/wk-clothing-crest.png',cover:'/assets/portraits/01-studio-hero.jpg',position:'78% 25%',paper:'#ededed',ink:'#151515',accent:'#c9c9c9',font:'Arial,sans-serif'},
   dracodon17:{origin:'https://dracodon17.com',name:'Draco Don17',logo:'/assets/branding/dd17-firearm-approved.png',cover:'/assets/portraits/01-studio-hero-beard.jpg',position:'50% 24%',paper:'#ededed',ink:'#151515',accent:'#909090',font:'Arial,sans-serif'},
   goldenrama440:{origin:'https://goldenrama440.com',name:'Golden Rama 440',logo:'/brand-logo.png',cover:'/assets/portraits/01-studio-hero.jpg',position:'50% 25%',paper:'#ededed',ink:'#212121',accent:'#808080',font:'Georgia,serif'},
-  richrow:{origin:'https://richrowmusic.com',name:'Rich Row Music',logo:'/brand-logo.png',cover:'/assets/rich-row-founder-charcoal-gold.png',position:'50% 35%',paper:'#efefef',ink:'#1e1e1e',accent:'#9c9c9c',font:'Impact,Arial,sans-serif'}
+  richrow:{origin:'https://richrowrecords.com',name:'Rich Row Music',logo:'/brand-logo.png',cover:'/assets/rich-row-founder-charcoal-gold.png',position:'50% 35%',paper:'#efefef',ink:'#1e1e1e',accent:'#9c9c9c',font:'Impact,Arial,sans-serif'}
  };
  const b=brands[site]||brands.richrow,$=s=>root.querySelector(s),asset=p=>new URL(p,location.hostname==='localhost'?location.origin:b.origin).href;
  Object.assign(dialog.style,{width:'min(560px,calc(100vw - 20px))',maxWidth:'560px',maxHeight:'calc(100dvh - 24px)',border:'1px solid #ababab',borderRadius:site==='goldenrama440'?'18px':'8px',padding:'0',background:b.paper,color:b.ink,overflow:'auto'});
