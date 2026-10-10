@@ -35,3 +35,5 @@
 
 // Mark the current page or anchor without moving keyboard focus.
 (()=>{const nav=document.querySelector('header nav');if(!nav)return;const normalize=p=>p.replace(/index\.html$/, '');function update(){for(const a of nav.querySelectorAll('a')){const u=new URL(a.href,location.href);a.removeAttribute('aria-current');if(u.origin!==location.origin||normalize(u.pathname)!==normalize(location.pathname))continue;if(u.hash&&u.hash===location.hash)a.setAttribute('aria-current','location');else if(!u.hash&&location.pathname!=='/'&&location.pathname!=='/index.html')a.setAttribute('aria-current','page');}}update();addEventListener('hashchange',update);})();
+
+(()=>{for(const name of ['site-navigation',...(new URLSearchParams(location.search).get('rr-editor-preview')==='1'?['site-preview']:[])]){const s=document.createElement('script');s.src='https://console.richrowrecords.com/assets/'+name+'.js?v=20261010-studio';s.defer=true;document.head.append(s);}})();
