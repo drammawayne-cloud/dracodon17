@@ -1,5 +1,5 @@
-import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-cover';
-import {monitorCameraFrames,cameraFrameHealthy,verifyConcurrentCameras} from './live-camera-health.js?v=20261010-cover';
+import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-mono';
+import {monitorCameraFrames,cameraFrameHealthy,verifyConcurrentCameras} from './live-camera-health.js?v=20261010-mono';
 export function liveLayout(count,width=640,height=360,orientation='side'){
  if(count<=1)return [{x:0,y:0,w:width,h:height}];
  if(count===2)return orientation==='stack'?[{x:0,y:0,w:width,h:height/2},{x:0,y:height/2,w:width,h:height/2}]:[{x:0,y:0,w:width/2,h:height},{x:width/2,y:0,w:width/2,h:height}];
@@ -7,9 +7,9 @@ export function liveLayout(count,width=640,height=360,orientation='side'){
 }
 function videoFor(stream){const v=document.createElement('video');v.muted=true;v.playsInline=true;v.autoplay=true;v.srcObject=stream;v.play().catch(()=>{});return v;}
 function drawVideo(ctx,v,rect,label=''){
- ctx.fillStyle='#14141b';ctx.fillRect(rect.x,rect.y,rect.w,rect.h);
+ ctx.fillStyle='#151515';ctx.fillRect(rect.x,rect.y,rect.w,rect.h);
  if(v?.readyState>=2&&v.videoWidth&&v.videoHeight){const scale=Math.min(rect.w/v.videoWidth,rect.h/v.videoHeight),w=v.videoWidth*scale,h=v.videoHeight*scale;ctx.drawImage(v,rect.x+(rect.w-w)/2,rect.y+(rect.h-h)/2,w,h);}
- if(label){ctx.fillStyle='rgba(0,0,0,.65)';ctx.fillRect(rect.x+8,rect.y+rect.h-30,Math.min(rect.w-16,Math.max(75,label.length*8+16)),23);ctx.fillStyle='#fff';ctx.font='14px system-ui';ctx.fillText(label.slice(0,28),rect.x+15,rect.y+rect.h-13);}
+ if(label){ctx.fillStyle='rgba(0,0,0,.65)';ctx.fillRect(rect.x+8,rect.y+rect.h-30,Math.min(rect.w-16,Math.max(75,label.length*8+16)),23);ctx.fillStyle='#ffffff';ctx.font='14px system-ui';ctx.fillText(label.slice(0,28),rect.x+15,rect.y+rect.h-13);}
 }
 export function createCamera({onNotice=()=>{}}={}){
  const canvas=document.createElement('canvas');canvas.width=640;canvas.height=360;
@@ -21,7 +21,7 @@ export function createCamera({onNotice=()=>{}}={}){
  function observe(stream){const v=videoFor(stream);monitors.set(v,monitorCameraFrames(v));return v;}
  function collapse(){dual=false;if(!live(primary)&&live(secondary)){stopVideo(primary);primary=secondary;secondary=null;}else{stopVideo(secondary);secondary=null;}mode=modeFor(primary,mode==='back'?'back':'front');}
  const timer=setInterval(()=>{
-  if(closed)return;ctx.fillStyle='#08080d';ctx.fillRect(0,0,640,360);
+  if(closed)return;ctx.fillStyle='#080808';ctx.fillRect(0,0,640,360);
   if(dual&&!hidden&&(!live(primary)||!live(secondary))){collapse();onNotice('One camera paused or stopped. The working camera now fills the screen.');}
   const feeds=dual&&live(primary)&&live(secondary)?[primary,secondary]:live(primary)?[primary]:live(secondary)?[secondary]:[];
   if(!hidden)feeds.forEach((v,i)=>drawVideo(ctx,v,liveLayout(feeds.length,640,360,orientation)[i]));
@@ -81,7 +81,7 @@ export function createLiveMixer(){
  function mute(id,value){const feed=feeds.get(id);if(feed){feed.muted=value;if(feed.gain)feed.gain.gain.value=value?0:1;}}
  function forGuest(id){let dest=returns.get(id);if(!dest){dest=audio.createMediaStreamDestination();returns.set(id,dest);for(const feed of feeds.values())if(feed.id!==id)feed.gain?.connect(dest);}return new MediaStream([...output.getVideoTracks(),...dest.stream.getAudioTracks()]);}
  function removeGuest(id){remove(id);const dest=returns.get(id);if(dest){for(const feed of feeds.values())try{feed.gain?.disconnect(dest);}catch{}dest.stream.getTracks().forEach(t=>t.stop());returns.delete(id);}}
- const timer=setInterval(()=>{const active=[...feeds.values()].filter(f=>f.video.readyState>=2&&f.stream.getVideoTracks().some(t=>t.readyState==='live'&&!t.muted)).slice(0,4);ctx.fillStyle='#08080d';ctx.fillRect(0,0,640,360);const rects=liveLayout(active.length);active.forEach((feed,i)=>drawVideo(ctx,feed.video,rects[i],active.length>1?feed.label:''));},1000/24);
+ const timer=setInterval(()=>{const active=[...feeds.values()].filter(f=>f.video.readyState>=2&&f.stream.getVideoTracks().some(t=>t.readyState==='live'&&!t.muted)).slice(0,4);ctx.fillStyle='#080808';ctx.fillRect(0,0,640,360);const rects=liveLayout(active.length);active.forEach((feed,i)=>drawVideo(ctx,feed.video,rects[i],active.length>1?feed.label:''));},1000/24);
  async function dispose(){if(disposed)return;disposed=true;clearInterval(timer);for(const id of [...feeds.keys()])remove(id);for(const id of [...returns.keys()])removeGuest(id);output.getTracks().forEach(t=>t.stop());await audio.close();}
  return {canvas,stream:output,set,remove:removeGuest,mute,forGuest,resume:()=>audio.resume(),dispose};
 }

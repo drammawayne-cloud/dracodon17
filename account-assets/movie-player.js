@@ -1,4 +1,4 @@
-import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-cover';
+import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-mono';
 export function movieSource(value){
  try{
   const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password)return null;
@@ -19,7 +19,7 @@ export function movieSource(value){
 }
 export function mountMovie(parent,source,title){
  const parsed=movieSource(source);if(!parsed)return false;
- const player=document.createElement(parsed.kind);player.src=parsed.url;player.title=title;player.style.cssText='width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000';
+ const player=document.createElement(parsed.kind);player.src=parsed.url;player.title=title;player.style.cssText='width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000000';
  if(parsed.kind==='iframe'){player.loading='lazy';player.allow='autoplay; fullscreen; picture-in-picture; encrypted-media';player.allowFullscreen=true;player.referrerPolicy='strict-origin-when-cross-origin';}
  else{player.controls=true;player.playsInline=true;player.preload='metadata';player.addEventListener('error',()=>{const p=document.createElement('p');p.textContent='This video is unavailable. Its source link may have expired or require permission.';parent.append(p);},{once:true});}
  parent.append(player);return true;

@@ -1,5 +1,5 @@
-import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-cover';
-function coverImage(el,p){return p.cover_url?el('img',{src:p.cover_url,alt:p.title+' cover',loading:'lazy',style:'width:100%;aspect-ratio:1;object-fit:contain;background:#f5f3ef;border-radius:12px;display:block'}):el('div',{'aria-label':'No product image',style:'aspect-ratio:1;background:#f5f3ef;display:grid;place-items:center;border-radius:12px'},'Image coming soon');}
+import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-mono';
+function coverImage(el,p){return p.cover_url?el('img',{src:p.cover_url,alt:p.title+' cover',loading:'lazy',style:'width:100%;aspect-ratio:1;object-fit:contain;background:#f3f3f3;border-radius:12px;display:block'}):el('div',{'aria-label':'No product image',style:'aspect-ratio:1;background:#f3f3f3;display:grid;place-items:center;border-radius:12px'},'Image coming soon');}
 const money=cents=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents/100);
 export async function offeringsPage({main,el,api,button,field,login,getToken,title}){
  title('RICH ROW / DIGITAL PRODUCTS & SERVICES','Your next resource.','Documents, templates, digital collections and professional services.');

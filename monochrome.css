@@ -1,0 +1,16 @@
+/* Draco's interface palette. Images, artwork, dimensions and layout stay intact. */
+:root,body[data-site=dracodon17]{--paper:#fff;--panel:#fff;--soft:#f0f0f0;--ink:#111;--line:#888;--muted:#555;--copy:#333;--accent:#111;--gold:#111;--member-accent:#111;--bg:var(--paper);--text:var(--ink);--surface:var(--panel);--border:var(--line);--card:var(--panel);--error:var(--ink);--danger:var(--ink);--success:var(--ink);color-scheme:light}
+:root[data-theme=dark],:root[data-theme=dark] body[data-site=dracodon17]{--paper:#111;--panel:#1b1b1b;--soft:#292929;--ink:#fff;--line:#999;--muted:#ccc;--copy:#eee;--accent:#fff;--gold:#fff;--member-accent:#fff;--error:#fff;--danger:#fff;--success:#fff;color-scheme:dark}
+body{background:var(--paper);color:var(--ink)}
+body[data-site=dracodon17] .theme-toggle{border-color:var(--ink);color:var(--ink)}
+body[data-site=dracodon17] :is(.pill,.gold,.graphic>span){background:var(--ink);color:var(--paper);border-color:var(--ink)}
+body[data-site=dracodon17] :is(.pill,.gold):hover{background:var(--paper);color:var(--ink)}
+body.artist-home .hero-actions .pill{background:#fff;color:#111;border-color:#fff}
+body.artist-home .hero-actions .pill:hover{background:#111;color:#fff;border-color:#fff;opacity:1}
+body.artist-home .campaign-hero h1,body.artist-home .campaign-hero h1 span:last-child,.hero-copy .eyebrow,.hero-copy #intro,.hero-link,.hero-scroll{color:#fff}
+body[data-site=dracodon17] :is(a,button,input,select,textarea):focus-visible{outline:3px solid currentColor;outline-offset:4px}
+body[data-site=dracodon17] :is(input,select,textarea){accent-color:var(--ink)}
+body[data-site=dracodon17] :is(input,select,textarea):focus-visible{outline-color:var(--ink)}
+body[data-site=dracodon17] :is(.error,.form-error,[role=alert]){color:var(--ink)}
+body[data-site=dracodon17] :is(input,select,textarea)[aria-invalid=true]{border:2px dashed var(--ink);box-shadow:none}
+body[data-site=dracodon17] dialog[data-artist-login=dracodon17]{background:var(--panel)!important;color:var(--ink)!important;border-color:var(--line)!important}
