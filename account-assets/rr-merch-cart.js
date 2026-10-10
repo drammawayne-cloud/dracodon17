@@ -1,5 +1,5 @@
-import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-mono';
-import {addToCart,migrateMerchCart,purchaseNow} from './rr-cart-state.js?v=20261010-mono';
+import {siteFetch as fetch,currentSite,apiOrigin,localLink,startGoogle,clearSession,saveSession} from './site-context.js?v=20261010-mono3';
+import {addToCart,migrateMerchCart,purchaseNow} from './rr-cart-state.js?v=20261010-mono3';
 const money=cents=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(cents/100);
 export async function merchCart(main,{el,api,button,login,signedIn,say}){
  migrateMerchCart();const products=await api('merch-catalog'),policy=await api('merch-policy');
